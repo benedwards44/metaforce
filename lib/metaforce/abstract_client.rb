@@ -41,7 +41,7 @@ module Metaforce
       begin
         perform_request(*args, &block)
       rescue Savon::SOAP::Fault => e
-        if e.message =~ /INVALID_SESSION_ID/ && authentication_handler && retries > 0
+        if e.message =~ /INVALID_SESSION_ID|INVALID_LOGIN/ && authentication_handler && retries > 0
           authenticate!
           retries -= 1
           retry
